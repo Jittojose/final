@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 100px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        .left-align {
+            text-align: left;
+            margin-left: 20px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        select {
+            height: 40px; /* Set the height for the select box */
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            width: 20%; /* Set the width for the submit button */
+            height: 40px; /* Set the height for the submit button */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            font-size: 16px;
+            color: #333;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        a.button-link {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px; /* Set the width and height here */
+            border-radius: 5px;
+        }
+
+        a.button-link:hover {
+            background-color: #0056b3;
+        }
+
+        /* Added CSS for the list */
+        .checkbox-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checkbox-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .checkbox-list label {
+            margin-right: 10px;
+        }
+        .common-button {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px; /* Set the width and height here */
+            border-radius: 5px;
+        }
+        .checkbox-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .checkbox-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .checkbox-item label {
+            width: 50%;
+            margin-right: 10px;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            flex: 1;
+        }
+
+
+
+        .common-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <form action="{% url 'new' %}" method="post">
+        <h1>FORM</h1>
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Enter your name" required><br>
+        <input type="date" name="DOB"><br>
+        <input type="number" name="age" placeholder="Enter your age" required><br><br>
+
+        <select name="gender" required>
+            <option value="">-Select Gender-</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select><br>
+
+        <input type="text" name="phone" placeholder="Enter your phone number" required><br>
+        <input type="email" name="email" placeholder="Enter email" required><br>
+        <input type="text" name="address" placeholder="Enter your address" required><br>
+
+        <select name="department" required>
+            <option value="">-Select Department-</option>
+            <optgroup label="Commerce">
+                <option value="BCom">BCom</option>
+                <option value="BBA">BBA</option>
+                <option value="BA">BA</option>
+            </optgroup>
+            <optgroup label="Science">
+                <option value="Physics">PHYSICS</option>
+                <option value="Chemistry">CHEMISTRY</option>
+                <option value="Computer">COMPUTER</option>
+            </optgroup>
+            <optgroup label="Humanities">
+                <option value="Politics">POLITICS</option>
+                <option value="Geography">GEOGRAPHY</option>
+                <option value="History">HISTORY</option>
+            </optgroup>
+        </select>
+
+        <select name="purpose" required>
+            <option value="">-Select Purpose-</option>
+            <option value="For inquiry">For inquiry</option>
+            <option value="Place order">Place order</option>
+            <option value="Return">Return</option>
+        </select><br>
+
+        <!-- Added heading and checkboxes for materials, arranged in a list -->
+<div class="left-align checkbox-container">
+    <h3>Materials Required:</h3>
+    <div class="checkbox-list">
+        <div class="checkbox-item">
+            <label for="pencil">Pencil</label>
+            <input type="checkbox" name="materials" id="pencil" value="Pencil">
+        </div>
+        <div class="checkbox-item">
+            <label for="book">Book</label>
+            <input type="checkbox" name="materials" id="book" value="Book">
+        </div>
+        <div class="checkbox-item">
+            <label for="eraser">Eraser</label>
+            <input type="checkbox" name="materials" id="eraser" value="Eraser">
+        </div>
+        <div class="checkbox-item">
+            <label for="paper">Paper</label>
+            <input type="checkbox" name="materials" id="paper" value="Paper">
+        </div>
+    </div>
+</div>
+
+
+        <button class="common-button" type="submit">SUBMIT</button>
+        <a class="common-button" href="logout">LOGOUT</a>
+
+
+        {% if form.errors %}
+        <div class="message">
+            <p><strong>Error:</strong> Please correct the following issues:</p>
+            <ul>
+                {% for error in form.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </form>
+</body>
+</html>
